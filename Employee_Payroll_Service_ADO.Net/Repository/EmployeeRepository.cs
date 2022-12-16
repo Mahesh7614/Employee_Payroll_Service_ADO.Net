@@ -113,5 +113,41 @@ namespace Employee_Payroll_Service_ADO.Net.Repository
                 }
             }
         }
+        public string UpdateSaralyUsingStoredProcedure(EmployeeModel employee)
+        {
+            SqlConnection objConnection = new SqlConnection(connectionString);
+            using (objConnection)
+            {
+                SqlCommand objCommand = new SqlCommand("UpdateSalary", objConnection);
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.Parameters.AddWithValue("@ID", employee.Id);
+                objCommand.Parameters.AddWithValue("@Name", employee.Name);
+                objCommand.Parameters.AddWithValue("@Salary", employee.Basic_Pay);
+                objConnection.Open();
+                try
+                {
+                    var objDataReader = objCommand.ExecuteNonQuery();
+                    if (objDataReader >= 1)
+                    {
+                        return "Data Updated";
+                    }
+                    else
+                    {
+                        return "Data  Not Updated";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return ex.Message;
+                }
+                finally
+                {
+                    if (objConnection.State == ConnectionState.Open)
+                    {
+                        objConnection.Close();
+                    }
+                }
+            }
+        }
     }
 }
