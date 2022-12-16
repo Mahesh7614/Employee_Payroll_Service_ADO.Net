@@ -209,7 +209,7 @@ namespace Employee_Payroll_Service_ADO.Net.Repository
                         objDataReader.Close();
                         return "Data Not Found";
                     }
-                    
+
                 }
             }
             catch (Exception ex)
@@ -296,6 +296,39 @@ namespace Employee_Payroll_Service_ADO.Net.Repository
                 {
                     objConnection.Close();
                 }
+            }
+        }
+        public void AggregateFunction(char gender)
+        {
+            SqlConnection objConnection = new SqlConnection(connectionString);
+            try
+            {
+                using (objConnection)
+                {
+                    string query = @$"SELECT SUM(Basic_Pay),MAX(Basic_Pay),MIN(Basic_Pay),AVG(Basic_Pay),Gender,COUNT(*) FROM Employee_Payroll WHERE Gender = '{gender}'  GROUP BY Gender";
+                    SqlCommand command = new SqlCommand(query, objConnection);
+
+                    objConnection.Open();
+                    SqlDataReader result = command.ExecuteReader();
+
+                    if (result.HasRows)
+                    {
+                        while (result.Read())
+                        {
+                            Console.WriteLine($"Total Salary = {result[0]}\n Max Salary = {result[1]}\n Min Salary = {result[2]}\n Avg Salary = {result[3]}\n Gender = {result[4]} \n Count = {result[5]}\n");
+                        }
+                        result.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                objConnection.Close();
             }
         }
     }

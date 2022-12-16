@@ -8,16 +8,18 @@ namespace Employee_Payroll_Service_ADO.Net
         static void Main(string[] args)
         {
             EmployeeRepository obj = new EmployeeRepository();
-            obj.UpdateSalary();
-            obj.GetAllEmployee();
+            //obj.UpdateSalary();
+            //obj.GetAllEmployee();
             EmployeeModel model = new EmployeeModel();
             //model.Id = 4;
             //model.Name = "Shubhanjli";
             //model.Basic_Pay = 4000000;
             //obj.UpdateSaralyUsingStoredProcedure(model);
             //obj.GetAllEmployee();
-            model.Name = "Shubhanjli";
-            obj.GetDataByName(model);
+            //model.Name = "Shubhanjli";
+            //obj.GetDataByName(model);
+            obj.AggregateFunction('M');
+            obj.AggregateFunction('F');
         }
     }
 }
