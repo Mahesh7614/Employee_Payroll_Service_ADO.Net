@@ -7,6 +7,7 @@ namespace Employee_Payroll_Service_ADO.Net
         static void Main(string[] args)
         {
             EmployeeRepository obj = new EmployeeRepository();
+            obj.UpdateSalary();
             obj.GetAllEmployee();
         }
     }

@@ -79,5 +79,39 @@ namespace Employee_Payroll_Service_ADO.Net.Repository
                 }
             }
         }
+        public string UpdateSalary()
+        {
+            SqlConnection objConnection = new SqlConnection(connectionString);
+            using (objConnection)
+            {
+                string query = @"Update Employee_Payroll Set Basic_Pay = 3000000 Where EmployeeName = 'Shubhanjli' and EmployeeID = 4";
+
+                SqlCommand objCommand = new SqlCommand(query, objConnection);
+                objConnection.Open();
+                try
+                {
+                    var objDataReader = objCommand.ExecuteNonQuery();
+                    if (objDataReader >= 1)
+                    {
+                        return "Data Updated";
+                    }
+                    else
+                    {
+                        return "Data  Not Updated";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return ex.Message;
+                }
+                finally
+                {
+                    if (objConnection.State == ConnectionState.Open)
+                    {
+                        objConnection.Close();
+                    }
+                }
+            }
+        }
     }
 }
