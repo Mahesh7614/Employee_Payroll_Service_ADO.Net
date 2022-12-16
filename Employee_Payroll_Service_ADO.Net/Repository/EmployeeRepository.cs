@@ -149,5 +149,81 @@ namespace Employee_Payroll_Service_ADO.Net.Repository
                 }
             }
         }
+        public string GetDataByName(EmployeeModel model)
+        {
+            SqlConnection objConnection = new SqlConnection(connectionString);
+            EmployeeModel objEmployeeModel = new EmployeeModel();
+            try
+            {
+
+
+                using (objConnection)
+                {
+                    SqlCommand objCommand = new SqlCommand("GetByName", objConnection);
+                    objCommand.CommandType = CommandType.StoredProcedure;
+                    objCommand.Parameters.AddWithValue("@Name", model.Name);
+                    objConnection.Open();
+                    SqlDataReader objDataReader = objCommand.ExecuteReader();
+                    
+                    if (objDataReader.HasRows)
+                    {
+                        Console.WriteLine("******************************** Employee Data BY Name ********************************\n");
+                        while (objDataReader.Read())
+                        {
+                            objEmployeeModel.Id = objDataReader.IsDBNull("EmployeeID") ? 0 : objDataReader.GetInt32("EmployeeID");
+                            objEmployeeModel.Name = objDataReader.IsDBNull("EmployeeName") ? string.Empty : objDataReader.GetString("EmployeeName");
+                            objEmployeeModel.PhoneNumber = objDataReader.IsDBNull("PhoneNumber") ? 0 : objDataReader.GetInt32("PhoneNumber");
+                            objEmployeeModel.Address = objDataReader.IsDBNull("Address") ? string.Empty : objDataReader.GetString("Address");
+                            objEmployeeModel.Department = objDataReader.IsDBNull("Department") ? string.Empty : objDataReader.GetString("Department");
+                            objEmployeeModel.Gender = Convert.ToChar(objDataReader.IsDBNull("Gender") ? string.Empty : objDataReader.GetString("Gender"));
+                            objEmployeeModel.Basic_Pay = objDataReader.IsDBNull("Basic_Pay") ? 0.0 : (Double)(objDataReader.GetDecimal("Basic_Pay"));
+                            objEmployeeModel.Deductions = objDataReader.IsDBNull("Deductions") ? 0.0 : (Double)objDataReader.GetDecimal("Deductions");
+                            objEmployeeModel.Taxable_Pay = objDataReader.IsDBNull("Taxable_Pay") ? 0.0 : (Double)objDataReader.GetDecimal("Taxable_Pay");
+                            objEmployeeModel.Tax = objDataReader.IsDBNull("Tax") ? 0.0 : (Double)objDataReader.GetDecimal("Tax");
+                            objEmployeeModel.Net_Pay = objDataReader.IsDBNull("Net_Pay") ? 0.0 : (Double)objDataReader.GetDecimal("Net_Pay");
+                            objEmployeeModel.StartDate = objDataReader.IsDBNull("StartDate") ? DateTime.MinValue : objDataReader.GetDateTime("StartDate");
+                            objEmployeeModel.City = objDataReader.IsDBNull("City") ? string.Empty : objDataReader.GetString("City");
+                            objEmployeeModel.Country = objDataReader.IsDBNull("Country") ? string.Empty : objDataReader.GetString("Country");
+
+                            Console.WriteLine($"Employee ID   : {objEmployeeModel.Id},\n" +
+                                              $"Employee Name : {objEmployeeModel.Name},\n" +
+                                              $"PhoneNumber   : {objEmployeeModel.PhoneNumber},\n" +
+                                              $"Address       : {objEmployeeModel.Address},\n" +
+                                              $"Department    : {objEmployeeModel.Department},\n" +
+                                              $"Gender        : {objEmployeeModel.Gender},\n" +
+                                              $"Basic_Pay     : {objEmployeeModel.Basic_Pay},\n" +
+                                              $"Deductions    : {objEmployeeModel.Deductions},\n" +
+                                              $"Taxable_Pay   : {objEmployeeModel.Taxable_Pay},\n" +
+                                              $"Tax           : {objEmployeeModel.Tax},\n" +
+                                              $"Net_Pay       : {objEmployeeModel.Net_Pay},\n" +
+                                              $"StartDate     : {objEmployeeModel.StartDate},\n" +
+                                              $"City          : {objEmployeeModel.City},\n" +
+                                              $"Country       : {objEmployeeModel.Country}\n");
+                            Console.WriteLine("----------------------------------------------------\n");
+                        }
+                        return "Data Found";
+                    }
+                    else
+                    {
+                        Console.WriteLine("No Records Found in the table");
+                        return "Data Not Found";
+                    }
+                    objDataReader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+            finally
+            {
+                if (objConnection.State == ConnectionState.Open)
+                {
+                    objConnection.Close();
+                }
+            }
+
+        }
     }
 }
+

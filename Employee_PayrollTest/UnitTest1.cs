@@ -25,5 +25,15 @@ namespace Employee_PayrollTest
 
             Assert.AreEqual("Data Updated", actual);
         }
+        [TestMethod]
+        public void GetDataByName()
+        {
+            EmployeeRepository employee = new EmployeeRepository();
+            EmployeeModel model = new EmployeeModel();
+            model.Name = "Shubhanjli";
+            string actual = employee.GetDataByName(model);
+
+            Assert.AreEqual("Data Found", actual);
+        }
     }
 }

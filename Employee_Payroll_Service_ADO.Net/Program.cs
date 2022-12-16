@@ -11,11 +11,13 @@ namespace Employee_Payroll_Service_ADO.Net
             obj.UpdateSalary();
             obj.GetAllEmployee();
             EmployeeModel model = new EmployeeModel();
-            model.Id = 4;
+            //model.Id = 4;
+            //model.Name = "Shubhanjli";
+            //model.Basic_Pay = 4000000;
+            //obj.UpdateSaralyUsingStoredProcedure(model);
+            //obj.GetAllEmployee();
             model.Name = "Shubhanjli";
-            model.Basic_Pay = 4000000;
-            obj.UpdateSaralyUsingStoredProcedure(model);
-            obj.GetAllEmployee();
+            obj.GetDataByName(model);
         }
     }
 }
