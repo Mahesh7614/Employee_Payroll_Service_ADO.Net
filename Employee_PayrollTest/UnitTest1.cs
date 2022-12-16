@@ -35,5 +35,15 @@ namespace Employee_PayrollTest
 
             Assert.AreEqual("Data Found", actual);
         }
+        [TestMethod]
+        public void RetriveDataWithinDateRange()
+        {
+            EmployeeRepository employee = new EmployeeRepository();
+            DateTime start = new DateTime(2018, 01, 01);
+            DateTime end = new DateTime(2022, 12, 25);
+            string actual = employee.GetDataWithinDateRange(start, end);
+
+            Assert.AreEqual("Data Found", actual);
+        }
     }
 }
