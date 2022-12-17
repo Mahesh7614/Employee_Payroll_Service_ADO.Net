@@ -97,7 +97,7 @@ namespace Employee_Payroll_Service_ADO.Net.Repository
                 objConnection.Open();
                 try
                 {
-                    var objDataReader = objCommand.ExecuteNonQuery();
+                    var objDataReader =  objCommand.ExecuteNonQuery();
                     if (objDataReader >= 1)
                     {
                         return "Data Updated";
@@ -259,7 +259,7 @@ namespace Employee_Payroll_Service_ADO.Net.Repository
                     objCommand.Parameters.AddWithValue("@Start", start);
                     objCommand.Parameters.AddWithValue("@End", end);
                     objConnection.Open();
-                    SqlDataReader objDataReader = objCommand.ExecuteReader();
+                    SqlDataReader objDataReader =  objCommand.ExecuteReader();
 
                     if (objDataReader.HasRows)
                     {
@@ -324,7 +324,7 @@ namespace Employee_Payroll_Service_ADO.Net.Repository
         /// Aggregate function.
         /// </summary>
         /// <param name="gender">The gender.</param>
-        public void AggregateFunction(char gender)
+        public async void AggregateFunction(char gender)
         {
             SqlConnection objConnection = new SqlConnection(connectionString);
             try
@@ -335,7 +335,7 @@ namespace Employee_Payroll_Service_ADO.Net.Repository
                     SqlCommand command = new SqlCommand(query, objConnection);
 
                     objConnection.Open();
-                    SqlDataReader result = command.ExecuteReader();
+                    SqlDataReader result = await command.ExecuteReaderAsync().ConfigureAwait(false);
 
                     if (result.HasRows)
                     {
@@ -355,6 +355,45 @@ namespace Employee_Payroll_Service_ADO.Net.Repository
             finally
             {
                 objConnection.Close();
+            }
+        }
+        /// <summary>
+        /// Insert Employee
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
+        public string InsertEmployee(EmployeeModel employee)
+        {
+            SqlConnection objConnection = new SqlConnection(connectionString);
+            using (objConnection)
+            {
+                string query = @$"INSERT Into Employee_Payroll (EmployeeName,PhoneNumber,Address, Basic_Pay, StartDate, Gender, Department, Deductions, Taxable_Pay, Tax, Net_Pay,City,Country) Values ('{employee.Name}','{employee.PhoneNumber}','{employee.Address}','{ employee.Basic_Pay}','{ employee.StartDate}','{employee.Gender}', '{employee.Department}','{ employee.Deductions}','{employee.Taxable_Pay}','{ employee.Tax}','{ employee.Net_Pay}','{employee.City}','{employee.Country}')";
+
+                SqlCommand objCommand = new SqlCommand(query, objConnection);
+                objConnection.Open();
+                try
+                {
+                    var objDataReader =  objCommand.ExecuteNonQuery();
+                    if (objDataReader >= 1)
+                    {
+                        return "Data Inserted Successfully";
+                    }
+                    else
+                    {
+                        return "Data Not Inserted";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return ex.Message;
+                }
+                finally
+                {
+                    if (objConnection.State == ConnectionState.Open)
+                    {
+                        objConnection.Close();
+                    }
+                }
             }
         }
     }

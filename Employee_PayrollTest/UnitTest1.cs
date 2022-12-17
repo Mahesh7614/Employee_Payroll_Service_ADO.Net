@@ -5,6 +5,9 @@ namespace Employee_PayrollTest
     [TestClass]
     public class UnitTest1
     {
+        /// <summary>
+        /// Checks the data updated or not.
+        /// </summary>
         [TestMethod]
         public void CheckDataUpdatedOrNot()
         {
@@ -13,6 +16,10 @@ namespace Employee_PayrollTest
 
             Assert.AreEqual("Data Updated", actual);
         }
+        /// <summary>
+        /// Checks the data updated or not using stored procedure.
+        /// </summary>
+        /// <returns></returns>
         [TestMethod]
         public void CheckDataUpdatedOrNotUsingStoredProcedure()
         {
@@ -25,6 +32,10 @@ namespace Employee_PayrollTest
 
             Assert.AreEqual("Data Updated", actual);
         }
+        /// <summary>
+        /// Gets the name of the data by.
+        /// </summary>
+        /// <returns></returns>
         [TestMethod]
         public void GetDataByName()
         {
@@ -35,6 +46,10 @@ namespace Employee_PayrollTest
 
             Assert.AreEqual("Data Found", actual);
         }
+        /// <summary>
+        /// Retrives the data within date range.
+        /// </summary>
+        /// <returns></returns>
         [TestMethod]
         public void RetriveDataWithinDateRange()
         {
@@ -44,6 +59,34 @@ namespace Employee_PayrollTest
             string actual = employee.GetDataWithinDateRange(start, end);
 
             Assert.AreEqual("Data Found", actual);
+        }
+        /// <summary>
+        /// Inserts the data to database.
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public void InsertDataToDatabase()
+        {
+            EmployeeRepository employee = new EmployeeRepository();
+            EmployeeModel model = new EmployeeModel();
+            model.Name = "Tushar";
+            model.PhoneNumber = 8999;
+            model.Address = "Patherdi";
+            model.Department = "Chemical";
+            model.Gender = 'M';
+            model.Basic_Pay = 3500000;
+            model.Deductions = 15000;
+            model.Taxable_Pay = 25000;
+            model.Tax = 50000;
+            model.Net_Pay = 2500000;
+            DateTime start = new DateTime(2022, 01, 02);
+            model.StartDate = start;
+            model.City = "Ahmednagar";
+            model.Country = "INDIA";
+
+            string actual = employee.InsertEmployee(model);
+
+            Assert.AreEqual("Data Inserted Successfully", actual);
         }
     }
 }
