@@ -2,7 +2,6 @@
 using Employee_Payroll_Service_ADO.Net.Model;
 using System.Data;
 using System.Data.SqlClient;
-using System.Reflection;
 
 namespace Employee_Payroll_Service_ADO.Net.Repository
 {
@@ -10,6 +9,9 @@ namespace Employee_Payroll_Service_ADO.Net.Repository
     {
         public static string connectionString = "Server=localhost;Database=Employee_Payroll_Services;User ID=MAHESH/Mahesh;Password=;TrustServerCertificate=True;integrated security=SSPI;";
 
+        /// <summary>
+        /// Get all employee.
+        /// </summary>
         public void GetAllEmployee()
         {
             SqlConnection objConnection = new SqlConnection(connectionString);
@@ -80,6 +82,10 @@ namespace Employee_Payroll_Service_ADO.Net.Repository
                 }
             }
         }
+        /// <summary>
+        /// Update salary.
+        /// </summary>
+        /// <returns></returns>
         public string UpdateSalary()
         {
             SqlConnection objConnection = new SqlConnection(connectionString);
@@ -114,6 +120,11 @@ namespace Employee_Payroll_Service_ADO.Net.Repository
                 }
             }
         }
+        /// <summary>
+        /// Update saraly using stored procedure.
+        /// </summary>
+        /// <param name="employee">The employee.</param>
+        /// <returns></returns>
         public string UpdateSaralyUsingStoredProcedure(EmployeeModel employee)
         {
             SqlConnection objConnection = new SqlConnection(connectionString);
@@ -150,6 +161,11 @@ namespace Employee_Payroll_Service_ADO.Net.Repository
                 }
             }
         }
+        /// <summary>
+        /// Employee Data BY Name.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns></returns>
         public string GetDataByName(EmployeeModel model)
         {
             SqlConnection objConnection = new SqlConnection(connectionString);
@@ -224,6 +240,12 @@ namespace Employee_Payroll_Service_ADO.Net.Repository
                 }
             }
         }
+        /// <summary>
+        /// Get data within date range.
+        /// </summary>
+        /// <param name="start">The start.</param>
+        /// <param name="end">The end.</param>
+        /// <returns></returns>
         public string GetDataWithinDateRange(DateTime start, DateTime end)
         {
             SqlConnection objConnection = new SqlConnection(connectionString);
@@ -298,6 +320,10 @@ namespace Employee_Payroll_Service_ADO.Net.Repository
                 }
             }
         }
+        /// <summary>
+        /// Aggregate function.
+        /// </summary>
+        /// <param name="gender">The gender.</param>
         public void AggregateFunction(char gender)
         {
             SqlConnection objConnection = new SqlConnection(connectionString);
