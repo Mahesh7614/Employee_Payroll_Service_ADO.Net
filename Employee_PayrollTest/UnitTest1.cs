@@ -88,5 +88,29 @@ namespace Employee_PayrollTest
 
             Assert.AreEqual("Data Inserted Successfully", actual);
         }
+        [TestMethod]
+        public void InsertDataInEmployeePayrollAsWellAsPayrollDetail()
+        {
+            EmployeeRepository employee = new EmployeeRepository();
+            EmployeeModel model = new EmployeeModel();
+            model.Name = "Piyush";
+            model.PhoneNumber = 84232;
+            model.Address = "Nagpur";
+            model.Department = "Production";
+            model.Gender = 'M';
+            model.Basic_Pay = 4500000;
+            model.Deductions = 15000;
+            model.Taxable_Pay = 25000;
+            model.Tax = 50000;
+            model.Net_Pay = 2500000;
+            DateTime start = new DateTime(2022, 01, 02);
+            model.StartDate = start;
+            model.City = "Nagpur";
+            model.Country = "INDIA";
+
+            string actual = employee.InsertEmployee_EmployeePayroll_AsWellAs_PayrollDetail(model);
+
+            Assert.AreEqual("Data Inserted Successfully in Both Tables", actual);
+        }
     }
 }
