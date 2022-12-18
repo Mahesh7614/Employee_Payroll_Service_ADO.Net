@@ -97,7 +97,7 @@ namespace Employee_Payroll_Service_ADO.Net.Repository
                 objConnection.Open();
                 try
                 {
-                    var objDataReader =  objCommand.ExecuteNonQuery();
+                    var objDataReader = objCommand.ExecuteNonQuery();
                     if (objDataReader >= 1)
                     {
                         return "Data Updated";
@@ -259,7 +259,7 @@ namespace Employee_Payroll_Service_ADO.Net.Repository
                     objCommand.Parameters.AddWithValue("@Start", start);
                     objCommand.Parameters.AddWithValue("@End", end);
                     objConnection.Open();
-                    SqlDataReader objDataReader =  objCommand.ExecuteReader();
+                    SqlDataReader objDataReader = objCommand.ExecuteReader();
 
                     if (objDataReader.HasRows)
                     {
@@ -367,13 +367,13 @@ namespace Employee_Payroll_Service_ADO.Net.Repository
             SqlConnection objConnection = new SqlConnection(connectionString);
             using (objConnection)
             {
-                string query = @$"INSERT Into Employee_Payroll (EmployeeName,PhoneNumber,Address, Basic_Pay, StartDate, Gender, Department, Deductions, Taxable_Pay, Tax, Net_Pay,City,Country) Values ('{employee.Name}','{employee.PhoneNumber}','{employee.Address}','{ employee.Basic_Pay}','{ employee.StartDate}','{employee.Gender}', '{employee.Department}','{ employee.Deductions}','{employee.Taxable_Pay}','{ employee.Tax}','{ employee.Net_Pay}','{employee.City}','{employee.Country}')";
+                string query = @$"INSERT Into Employee_Payroll (EmployeeName,PhoneNumber,Address, Basic_Pay, StartDate, Gender, Department, Deductions, Taxable_Pay, Tax, Net_Pay,City,Country) Values ('{employee.Name}','{employee.PhoneNumber}','{employee.Address}','{employee.Basic_Pay}','{employee.StartDate}','{employee.Gender}', '{employee.Department}','{employee.Deductions}','{employee.Taxable_Pay}','{employee.Tax}','{employee.Net_Pay}','{employee.City}','{employee.Country}')";
 
                 SqlCommand objCommand = new SqlCommand(query, objConnection);
                 objConnection.Open();
                 try
                 {
-                    var objDataReader =  objCommand.ExecuteNonQuery();
+                    var objDataReader = objCommand.ExecuteNonQuery();
                     if (objDataReader >= 1)
                     {
                         return "Data Inserted Successfully";
@@ -406,14 +406,13 @@ namespace Employee_Payroll_Service_ADO.Net.Repository
             SqlConnection objConnection = new SqlConnection(connectionString);
             using (objConnection)
             {
-                //string query = @$"INSERT Into Employee_Payroll (EmployeeName,PhoneNumber,Address, Basic_Pay, StartDate, Gender, Department, Deductions, Taxable_Pay, Tax, Net_Pay,City,Country) Values ('{employee.Name}','{employee.PhoneNumber}','{employee.Address}','{ employee.Basic_Pay}','{ employee.StartDate}','{employee.Gender}', '{employee.Department}','{ employee.Deductions}','{employee.Taxable_Pay}','{ employee.Tax}','{ employee.Net_Pay}','{employee.City}','{employee.Country}')";
                 string query = @$"begin TRANSACTION declare @EmpId int, @Basic_Pay money INSERT Into employee_payroll (EmployeeName,PhoneNumber,Address, Basic_Pay, StartDate, Gender, Department, Deductions, Taxable_Pay, Tax, Net_Pay,City,Country) Values  ('{employee.Name}','{employee.PhoneNumber}','{employee.Address}','{employee.Basic_Pay}','{employee.StartDate}','{employee.Gender}', '{employee.Department}','{employee.Deductions}','{employee.Taxable_Pay}','{employee.Tax}','{employee.Net_Pay}','{employee.City}','{employee.Country}') set @EmpID = (select EmployeeID from Employee_Payroll where EmployeeName = '{employee.Name}') set @Basic_Pay = (select Basic_Pay from Employee_Payroll where EmployeeName = '{employee.Name}') insert into Payroll_Detail (EmployeeID,Salary) values (@EmpID, @Basic_Pay) Commit;";
 
                 SqlCommand objCommand = new SqlCommand(query, objConnection);
                 objConnection.Open();
                 try
                 {
-                    var objDataReader =  objCommand.ExecuteNonQuery();
+                    var objDataReader = objCommand.ExecuteNonQuery();
                     if (objDataReader >= 1)
                     {
                         return "Data Inserted Successfully in Both Tables";
